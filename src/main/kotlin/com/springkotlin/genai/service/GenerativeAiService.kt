@@ -47,16 +47,17 @@ class GenerativeAiService(private val webClientBuilder: WebClient.Builder) {
         )
 
         return try {
-            val response = webClientBuilder.build().post()
+            val response = webClientBuilder.build()
+                .post()
                 .uri(url)
                 .bodyValue(requestBody)
                 .retrieve()
-                .bodyToMono(Map::class.java) // Assuming the response is a Map; adjust if needed
+                .bodyToMono(Map::class.java) // Adjust based on actual response structure
                 .block()
 
             response?.toString() ?: "No response from API"
         } catch (e: WebClientResponseException) {
-            "Error: ${e.message}"
+            "Error: ${e.responseBodyAsString}" // Log or return API error for debugging
         } catch (e: Exception) {
             "Error: ${e.message}"
         }

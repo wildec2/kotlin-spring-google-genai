@@ -1,9 +1,8 @@
 package com.springkotlin.genai.controller
 
+import com.springkotlin.genai.dto.GenerateRequestBody
 import com.springkotlin.genai.service.GenerativeAiService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class GenerativeAiController(private val generativeAiService: GenerativeAiService) {
@@ -21,13 +20,16 @@ class GenerativeAiController(private val generativeAiService: GenerativeAiServic
         return generativeAiService.getModelDetails(modelName, apiKey)
     }
 
-    @GetMapping("/generate")
+    @PostMapping("/generate")
     fun generateText(
-        @RequestParam prompt: String,
-        @RequestParam temperature: Double,
-        @RequestParam maxOutputTokens: Int,
+        @RequestBody requestBody: GenerateRequestBody,
         @RequestParam apiKey: String
     ): String {
-        return generativeAiService.generateText(prompt, temperature, maxOutputTokens, apiKey)
+        return generativeAiService.generateText(
+            requestBody.prompt,
+            requestBody.temperature,
+            requestBody.maxOutputTokens,
+            apiKey
+        )
     }
 }

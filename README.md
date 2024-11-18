@@ -20,7 +20,7 @@ This project provides a Spring Boot-based REST API for interacting with Google's
 ## Running the Project
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/wildec2/kotlin-spring-google-genai.git
    cd <repository-directory>
 2. To compile and package the project, run:
     ```bash
@@ -61,8 +61,13 @@ Generates content based on a prompt using a specific model.
 
 **Request**
 ```bash
-curl --location 'http://localhost:8080/generate?prompt=Write+a+story+about+a+magic+backpack.&temperature=0.7&maxOutputTokens=200&apiKey=YOUR_API_KEY' \
---header 'Accept: text/plain'
+curl --location 'http://localhost:8080/generate?apiKey=YOUR_API_KEY' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "prompt": "Write a story about a magic backpack.",
+    "temperature": 0.7,
+    "maxOutputTokens": 200
+}'
 ```
 
 This endpoint generates content based on the provided prompt, using the specified parameters such as `temperature` and `maxOutputTokens`.
