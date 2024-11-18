@@ -6,7 +6,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import org.springframework.web.reactive.function.client.bodyToMono
 
 @Service
-class GenerativeAiService(private val webClientBuilder: WebClient.Builder) {
+class GenerateService(private val webClientBuilder: WebClient.Builder) {
 
     //list models
     fun listModels(apiKey: String): Map<String, Any>? {

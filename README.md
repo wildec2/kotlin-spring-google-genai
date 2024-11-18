@@ -90,7 +90,7 @@ Replace `YOUR_API_KEY` in the requests with your actual API key. For security, a
 - **Service**: Contains the logic for interacting with the Generative Language API. The service layer is where the API communication and business logic take place.
 
 ### Adding Features
-To add new features, modify or add new endpoints in the `GenerativeAiController` and implement corresponding logic in the `GenerativeAiService`. You can extend functionality by interacting with the Generative Language API or enhancing the service layer to support additional capabilities.
+To add new features, modify or add new endpoints in the `GenerateController` and implement corresponding logic in the `GenerateService`. You can extend functionality by interacting with the Generative Language API or enhancing the service layer to support additional capabilities.
 
 ## .gitignore
 Ensure sensitive files like `.env` or `application.yml` are ignored in version control. See the included `.gitignore` file for more details.

@@ -1,11 +1,11 @@
 package com.springkotlin.genai.controller
 
 import com.springkotlin.genai.dto.GenerateRequestBody
-import com.springkotlin.genai.service.GenerativeAiService
+import com.springkotlin.genai.service.GenerateService
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class GenerativeAiController(private val generativeAiService: GenerativeAiService) {
+class GenerateController(private val generativeAiService: GenerateService) {
 
     @GetMapping("/models/list")
     fun listModels(@RequestParam apiKey: String): Map<String, Any>? {
