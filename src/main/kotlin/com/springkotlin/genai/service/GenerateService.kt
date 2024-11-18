@@ -29,7 +29,14 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
     }
 
     //prompt request
-    fun generateText(prompt: String, temperature: Double, maxOutputTokens: Int, apiKey: String): String {
+    fun generateText(
+        prompt: String,
+        temperature: Double,
+        maxOutputTokens: Int,
+        topP: Double,
+        topK: Int?,
+        apiKey: String
+    ): String {
         val url = "/models/gemini-1.5-flash:generateContent?key=$apiKey"
 
         val requestBody = mapOf(
@@ -42,7 +49,9 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
             ),
             "generationConfig" to mapOf(
                 "temperature" to temperature,
-                "maxOutputTokens" to maxOutputTokens
+                "maxOutputTokens" to maxOutputTokens,
+                "topP" to topP,
+                "topK" to topK
             )
         )
 

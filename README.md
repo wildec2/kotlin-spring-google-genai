@@ -64,13 +64,19 @@ Generates content based on a prompt using a specific model.
 curl --location 'http://localhost:8080/generate?apiKey=YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "prompt": "Write a story about a magic backpack.",
+    "prompt": "Write a story about a sunny day.",
     "temperature": 0.7,
-    "maxOutputTokens": 200
+    "maxOutputTokens": 200,
+    "topP": 0.5,
+    "topK": 8
 }'
 ```
 
 This endpoint generates content based on the provided prompt, using the specified parameters such as `temperature` and `maxOutputTokens`.
+
+
+---
+
 
 ## Configuration
 
@@ -82,6 +88,14 @@ Replace `YOUR_API_KEY` in the requests with your actual API key. For security, a
 
 - **maxOutputTokens**: Sets the maximum number of tokens (words or parts of words) the model will generate in the output. This limits the length of the generated response.
 
+- **TopP**: The maximum cumulative probability of tokens to consider when sampling.
+
+- **TopK**: Optional. The maximum number of tokens to consider when sampling.
+
+
+---
+
+
 ## Development
 
 ### Structure
@@ -91,6 +105,10 @@ Replace `YOUR_API_KEY` in the requests with your actual API key. For security, a
 
 ### Adding Features
 To add new features, modify or add new endpoints in the `GenerateController` and implement corresponding logic in the `GenerateService`. You can extend functionality by interacting with the Generative Language API or enhancing the service layer to support additional capabilities.
+
+
+---
+
 
 ## .gitignore
 Ensure sensitive files like `.env` or `application.yml` are ignored in version control. See the included `.gitignore` file for more details.
