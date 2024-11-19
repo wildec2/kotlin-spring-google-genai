@@ -1,5 +1,9 @@
 package com.springkotlin.genai.service
 
+import com.springkotlin.genai.dto.ContentsData
+import com.springkotlin.genai.dto.GenerateRequestBody
+import com.springkotlin.genai.dto.GenerationConfigData
+import com.springkotlin.genai.dto.PartsData
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClientResponseException
@@ -39,19 +43,19 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
     ): String {
         val url = "/models/gemini-1.5-flash:generateContent?key=$apiKey"
 
-        val requestBody = mapOf(
-            "contents" to listOf(
-                mapOf(
-                    "parts" to listOf(
-                        mapOf("text" to prompt)
-                    )
+        val requestBody = GenerateRequestBody(
+            contents = listOf(
+                ContentsData(
+                    role = "user",
+                    parts = listOf(PartsData(text = prompt))
                 )
             ),
-            "generationConfig" to mapOf(
-                "temperature" to temperature,
-                "maxOutputTokens" to maxOutputTokens,
-                "topP" to topP,
-                "topK" to topK
+            generationConfig = GenerationConfigData(
+                temperature = temperature,
+                maxOutputTokens = maxOutputTokens,
+                topP = topP,
+                topK = topK
+                // Add other parameters if necessary
             )
         )
 

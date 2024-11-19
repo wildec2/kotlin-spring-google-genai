@@ -25,13 +25,14 @@ class GenerateController(private val generativeAiService: GenerateService) {
         @RequestBody requestBody: GenerateRequestBody,
         @RequestParam apiKey: String
     ): String {
+        val generationConfig = requestBody.generationConfig
         return generativeAiService.generateText(
-            prompt = requestBody.prompt,
-            temperature = requestBody.temperature,
-            maxOutputTokens = requestBody.maxOutputTokens,
-            topP = requestBody.topP,
-            topK = requestBody.topK,
-            apiKey
+            prompt = requestBody.contents.firstOrNull()?.parts?.firstOrNull()?.text ?: "",
+            temperature = generationConfig?.temperature ?: 0.3,
+            maxOutputTokens = generationConfig?.maxOutputTokens ?: 100,
+            topP = generationConfig?.topP ?: 1.0,
+            topK = generationConfig?.topK,
+            apiKey = apiKey
         )
     }
 }

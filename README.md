@@ -64,11 +64,20 @@ Generates content based on a prompt using a specific model.
 curl --location 'http://localhost:8080/generate?apiKey=YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "prompt": "Write a story about a sunny day.",
-    "temperature": 0.7,
-    "maxOutputTokens": 200,
-    "topP": 0.5,
-    "topK": 8
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        { "text": "Tell me a story about Dublin City." }
+      ]
+    }
+  ],
+  "generationConfig": {
+    "temperature": 0.1,
+    "maxOutputTokens": 100,
+    "topP": 0.3,
+    "topK": 40
+  }
 }'
 ```
 
