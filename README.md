@@ -59,9 +59,9 @@ Response Returns a JSON object with details about the specified model.
 ### 3. Generate Text [Prompt/Chat]
 Generates content based on a prompt using a specific model.
 
-**Prompt Request**
+**Prompt Request With Selected Model**
 ```bash
-curl --location 'http://localhost:8080/generate?apiKey=YOUR_API_KEY' \
+curl --location 'http://localhost:8080/generate?model=gemini-1.5-flash&apiKey=YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "contents": [
@@ -122,7 +122,8 @@ curl -X POST "http://localhost:8080/generate?apiKey=YOUR_API_KEY" \
 
 
 This endpoint generates content based on the provided content, using the specified parameters such as `temperature` and `maxOutputTokens`.
-It can use user prompts and previous model responses to build an interactive chat experience.
+It can use user prompts and previous model responses to build an interactive chat experience. The request allows the model to be changed. 
+The default the model is `gemini-1.5-flash-001`.
 
 
 ---

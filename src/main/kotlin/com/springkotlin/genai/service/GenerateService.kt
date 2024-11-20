@@ -13,13 +13,14 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
     //chat request
     fun generateText(
         contents: List<ContentsData>,
+        model: String,
         temperature: Double,
         maxOutputTokens: Int,
         topP: Double,
         topK: Int?,
         apiKey: String
     ): String {
-        val url = "/models/gemini-1.5-flash:generateContent?key=$apiKey"
+        val url = "/models/$model:generateContent?key=$apiKey"
 
         val requestBody = GenerateRequestBody(
             contents = contents,
