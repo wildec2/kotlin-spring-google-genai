@@ -5,20 +5,7 @@ import com.springkotlin.genai.service.GenerateService
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class GenerateController(private val generativeAiService: GenerateService) {
-
-    @GetMapping("/models/list")
-    fun listModels(@RequestParam apiKey: String): Map<String, Any>? {
-        return generativeAiService.listModels(apiKey)
-    }
-
-    @GetMapping("/models/details")
-    fun getModelDetails(
-        @RequestParam apiKey: String,
-        @RequestParam modelName: String
-    ): Map<String, Any>? {
-        return generativeAiService.getModelDetails(modelName, apiKey)
-    }
+class GenerateController(private val generateService: GenerateService) {
 
     @PostMapping("/generate")
     fun generateText(
@@ -26,7 +13,7 @@ class GenerateController(private val generativeAiService: GenerateService) {
         @RequestParam apiKey: String
     ): String {
         val generationConfig = requestBody.generationConfig
-        return generativeAiService.generateText(
+        return generateService.generateText(
             contents = requestBody.contents,
             temperature = generationConfig?.temperature ?: 0.3,
             maxOutputTokens = generationConfig?.maxOutputTokens ?: 100,
