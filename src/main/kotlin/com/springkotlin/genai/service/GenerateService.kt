@@ -32,9 +32,9 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
             .block()
     }
 
-    //prompt request
+    //chat request
     fun generateText(
-        prompt: String,
+        contents: List<ContentsData>,
         temperature: Double,
         maxOutputTokens: Int,
         topP: Double,
@@ -44,12 +44,7 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
         val url = "/models/gemini-1.5-flash:generateContent?key=$apiKey"
 
         val requestBody = GenerateRequestBody(
-            contents = listOf(
-                ContentsData(
-                    role = "user",
-                    parts = listOf(PartsData(text = prompt))
-                )
-            ),
+            contents = contents,
             generationConfig = GenerationConfigData(
                 temperature = temperature,
                 maxOutputTokens = maxOutputTokens,

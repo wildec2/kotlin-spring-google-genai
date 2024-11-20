@@ -56,10 +56,10 @@ curl -X GET "http://localhost:8080/models/list?apiKey=YOUR_API_KEY" -H "Accept: 
 
 Response Returns a JSON object with details about the specified model.
 
-### 3. Generate Text
+### 3. Generate Text [Prompt/Chat]
 Generates content based on a prompt using a specific model.
 
-**Request**
+**Prompt Request**
 ```bash
 curl --location 'http://localhost:8080/generate?apiKey=YOUR_API_KEY' \
 --header 'Content-Type: application/json' \
@@ -80,8 +80,49 @@ curl --location 'http://localhost:8080/generate?apiKey=YOUR_API_KEY' \
   }
 }'
 ```
+**Chat Request**
+```bash
+curl -X POST "http://localhost:8080/generate?apiKey=YOUR_API_KEY" \
+-H "Content-Type: application/json" \
+-d '{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Hello! My Name is Colum."
+        }
+      ]
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "text": "Hi there Colum! How can I help you today?"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "Do you remember my name?"
+        }
+      ]
+    }
+  ],
+  "generationConfig": {
+    "temperature": 0.7,
+    "maxOutputTokens": 150,
+    "topP": 0.9,
+    "topK": 40
+  }
+}'
+```
 
-This endpoint generates content based on the provided prompt, using the specified parameters such as `temperature` and `maxOutputTokens`.
+
+This endpoint generates content based on the provided content, using the specified parameters such as `temperature` and `maxOutputTokens`.
+It can use user prompts and previous model responses to build an interactive chat experience.
 
 
 ---
