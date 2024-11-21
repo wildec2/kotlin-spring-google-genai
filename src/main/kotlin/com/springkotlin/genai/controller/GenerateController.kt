@@ -15,13 +15,13 @@ class GenerateController(private val generateService: GenerateService) {
     ): String {
         val generationConfig = requestBody.generationConfig
         return generateService.generateText(
+            apiKey = apiKey,
             model = model,
             contents = requestBody.contents,
             temperature = generationConfig?.temperature ?: 0.3,
             maxOutputTokens = generationConfig?.maxOutputTokens ?: 100,
             topP = generationConfig?.topP ?: 1.0,
             topK = generationConfig?.topK,
-            apiKey = apiKey
         )
     }
 }

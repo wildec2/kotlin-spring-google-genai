@@ -12,13 +12,13 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
 
     //chat request
     fun generateText(
-        contents: List<ContentsData>,
+        apiKey: String,
         model: String,
+        contents: List<ContentsData>,
         temperature: Double,
         maxOutputTokens: Int,
         topP: Double,
-        topK: Int?,
-        apiKey: String
+        topK: Int?
     ): String {
         val url = "/models/$model:generateContent?key=$apiKey"
 
