@@ -143,6 +143,10 @@ Replace `YOUR_API_KEY` in the requests with your actual API key. For security, a
 
 - **TopK**: Optional. The maximum number of tokens to consider when sampling.
 
+- **responseMimeType**: Optional. MIME type of the generated candidate text. Supported MIME types are: `text/plain`: (default) Text output. 
+`application/json`:  This forces the model to constrain decoding, such that token selection is guided by the supplied schema.
+`text/x.enum`: ENUM as a string response in the response candidates which allows you to constrain the output to a fixed set of values.
+
 
 ---
 

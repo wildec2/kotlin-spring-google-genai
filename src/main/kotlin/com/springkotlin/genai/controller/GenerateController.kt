@@ -20,8 +20,9 @@ class GenerateController(private val generateService: GenerateService) {
             contents = requestBody.contents,
             temperature = generationConfig?.temperature ?: 0.3,
             maxOutputTokens = generationConfig?.maxOutputTokens ?: 100,
-            topP = generationConfig?.topP ?: 1.0,
+            topP = generationConfig?.topP ?: 0.5,
             topK = generationConfig?.topK,
+            responseMimeType = generationConfig?.responseMimeType
         )
     }
 }

@@ -18,7 +18,8 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
         temperature: Double,
         maxOutputTokens: Int,
         topP: Double,
-        topK: Int?
+        topK: Int?,
+        responseMimeType: String?
     ): String {
         val url = "/models/$model:generateContent?key=$apiKey"
 
@@ -28,7 +29,8 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
                 temperature = temperature,
                 maxOutputTokens = maxOutputTokens,
                 topP = topP,
-                topK = topK
+                topK = topK,
+                responseMimeType = responseMimeType
                 // Add other parameters if necessary
             )
         )
