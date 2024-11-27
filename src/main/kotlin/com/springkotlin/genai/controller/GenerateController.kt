@@ -22,7 +22,8 @@ class GenerateController(private val generateService: GenerateService) {
             maxOutputTokens = generationConfig?.maxOutputTokens ?: 100,
             topP = generationConfig?.topP ?: 0.5,
             topK = generationConfig?.topK,
-            responseMimeType = generationConfig?.responseMimeType
+            responseMimeType = generationConfig?.responseMimeType,
+            responseSchema = generationConfig?.responseSchema
         )
     }
 }

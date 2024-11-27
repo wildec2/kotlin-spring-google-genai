@@ -1,9 +1,12 @@
 package com.springkotlin.genai.dto
 
+import com.fasterxml.jackson.annotation.JsonInclude
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class GenerationConfigData(
     val stopSequences: List<String>? = null,
     val responseMimeType: String? = null,
-    val responseSchema: Schema? = null,
+    val responseSchema: String? = null,
     val candidateCount: Int? = null,
     val maxOutputTokens: Int? = null,
     val temperature: Double? = null,
@@ -13,9 +16,4 @@ data class GenerationConfigData(
     val frequencyPenalty: Double? = null,
     val responseLogprobs: Boolean? = null,
     val logprobs: Int? = null
-)
-
-// Placeholder for the Schema object
-data class Schema(
-    val details: Any? // Adjust this based on the actual schema structure
 )
