@@ -119,6 +119,25 @@ curl -X POST "http://localhost:8080/generate?apiKey=YOUR_API_KEY" \
   }
 }'
 ```
+**Enum Mode Request**
+```bash
+curl --location 'http://localhost:8080/generate?model=gemini-1.5-flash-001&apiKey=YOUR_API_KEY' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        { "text": "The night life in Dublin city is awesome" }    
+      ]
+    }
+  ],
+  "generationConfig": {
+    "responseMimeType": "text/x.enum",
+    "responseSchema": "Sentiment"
+  }
+}'
+```
 
 
 This endpoint generates content based on the provided content, using the specified parameters such as `temperature` and `maxOutputTokens`.

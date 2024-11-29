@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 data class GenerationConfigData(
     val stopSequences: List<String>? = null,
     val responseMimeType: String? = null,
-    val responseSchema: String? = null,
+    val responseSchema: Any? = null,
     val candidateCount: Int? = null,
     val maxOutputTokens: Int? = null,
     val temperature: Double? = null,

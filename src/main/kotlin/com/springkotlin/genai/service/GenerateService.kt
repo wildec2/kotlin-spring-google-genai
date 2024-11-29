@@ -21,7 +21,7 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
         topP: Double,
         topK: Int?,
         responseMimeType: String? = null,
-        responseSchema: String? = null
+        responseSchema: Any? = null
     ): String {
         val url = "/models/$model:generateContent?key=$apiKey"
 
@@ -57,10 +57,15 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
         }
     }
 
-    private fun parseResponseSchema(responseSchema: Any?): String? {
+    private fun parseResponseSchema(responseSchema: Any): Map<String, Any>? {
         return when (responseSchema) {
-            "Sentiment" -> Sentiment::class.java.name
-            //"CustomDataClass" -> CustomDataClass::class
+            "Sentiment" -> {
+                mapOf(
+                    "type" to "string",
+                    "enum" to Sentiment.entries.map { it.name }
+                )
+            }
+
             else -> null
         }
     }
