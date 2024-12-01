@@ -4,6 +4,8 @@ import com.springkotlin.genai.dto.ContentsData
 import com.springkotlin.genai.dto.GenerateRequestBody
 import com.springkotlin.genai.dto.GenerationConfigData
 import com.springkotlin.genai.enums.Sentiment
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClientResponseException
@@ -11,7 +13,8 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 @Service
 class GenerateService(private val webClientBuilder: WebClient.Builder) {
 
-    //chat request
+    private val logger: Logger = LoggerFactory.getLogger(GenerateService::class.java)
+
     fun generateText(
         apiKey: String,
         model: String,
@@ -51,8 +54,13 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
 
             response?.toString() ?: "No response from API"
         } catch (e: WebClientResponseException) {
+            logger.error("WebClientResponseException: ${e.responseBodyAsString}", e)
             "Error: ${e.responseBodyAsString}"
+        } catch (e: ClassNotFoundException) {
+            logger.error("Class not found: $responseSchema", e)
+            "Error: Invalid response schema."
         } catch (e: Exception) {
+            logger.error("Unexpected error occurred", e)
             "Error: ${e.message}"
         }
     }
