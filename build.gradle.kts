@@ -28,6 +28,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 
 	implementation("com.google.auth:google-auth-library-oauth2-http:1.30.0")
+
+	implementation("org.slf4j:slf4j-api:2.0.16")
+
 }
 
 kotlin {
