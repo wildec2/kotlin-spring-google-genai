@@ -23,7 +23,7 @@ class GenerateController(private val generateService: GenerateService) {
             topP = generationConfig?.topP ?: 0.5,
             topK = generationConfig?.topK,
             responseMimeType = generationConfig?.responseMimeType,
-            responseSchema = generationConfig?.responseSchema
+            responseSchema = "com.springkotlin.genai.enums.${generationConfig?.responseSchema}"
         )
     }
 }

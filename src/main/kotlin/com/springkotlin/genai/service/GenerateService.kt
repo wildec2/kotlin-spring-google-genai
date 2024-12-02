@@ -3,12 +3,13 @@ package com.springkotlin.genai.service
 import com.springkotlin.genai.dto.ContentsData
 import com.springkotlin.genai.dto.GenerateRequestBody
 import com.springkotlin.genai.dto.GenerationConfigData
-import com.springkotlin.genai.enums.Sentiment
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClientResponseException
+import kotlin.reflect.full.companionObject
+import kotlin.reflect.full.companionObjectInstance
 
 @Service
 class GenerateService(private val webClientBuilder: WebClient.Builder) {
@@ -65,16 +66,39 @@ class GenerateService(private val webClientBuilder: WebClient.Builder) {
         }
     }
 
-    private fun parseResponseSchema(responseSchema: Any): Map<String, Any>? {
-        return when (responseSchema) {
-            "Sentiment" -> {
+    private fun parseResponseSchema(responseSchema: Any?): Map<String, Any>? {
+        return try {
+            val className = responseSchema as? String ?: return null
+            val enumClass = Class.forName(className).kotlin
+
+            if (enumClass.java.isEnum) {
+                // Look for entries in the companion object if available
+                val companionObject = enumClass.companionObjectInstance
+                val entriesProperty = companionObject?.let { _ ->
+                    enumClass.companionObject?.members?.find { it.name == "entries" }
+                }
+
+                val enumValues = enumClass.companionObjectInstance
+                    ?.let { companion ->
+                        enumClass.companionObject?.members
+                            ?.find { it.name == "entries" }
+                            ?.call(companion) as? List<*>
+                    } ?: enumClass.java.enumConstants.map { it.toString() }
+
                 mapOf(
                     "type" to "string",
-                    "enum" to Sentiment.entries.map { it.name }
+                    "enum" to enumValues
                 )
+            } else {
+                null
             }
-
-            else -> null
+        } catch (e: ClassNotFoundException) {
+            logger.error("Class not found: $responseSchema", e)
+            null
+        } catch (e: Exception) {
+            logger.error("Unexpected error occurred", e)
+            "Error: ${e.message}"
+            null
         }
     }
 }
