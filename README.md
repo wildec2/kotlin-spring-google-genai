@@ -166,6 +166,8 @@ Replace `YOUR_API_KEY` in the requests with your actual API key. For security, a
 `application/json`:  This forces the model to constrain decoding, such that token selection is guided by the supplied schema.
 `text/x.enum`: ENUM as a string response in the response candidates which allows you to constrain the output to a fixed set of values.
 
+- **responseSchema**: Optional. Output schema of the generated candidate text. If set, a compatible responseMimeType must also be set.
+
 
 ---
 
